@@ -2,22 +2,22 @@
 
 This project is an implementation of MiniVSFS, a small, inode-based file system inspired by the VSFS (Very Simple File System). The implementation consists of two main C programs:
 
-1.  [cite_start]**`mkfs_builder`**: A tool that creates a fresh, empty MiniVSFS disk image from scratch. [cite: 3]
-2.  [cite_start]**`mkfs_adder`**: A tool that adds a file from the host system into the root directory of an existing MiniVSFS disk image. [cite: 5, 6]
+1.  **`mkfs_builder`**: A tool that creates a fresh, empty MiniVSFS disk image from scratch.
+2.  **`mkfs_adder`**: A tool that adds a file from the host system into the root directory of an existing MiniVSFS disk image. 
 
 ## Key Features
 
-- [cite_start]**Block-Based Structure:** The file system is organized into a standard layout containing a superblock, inode bitmap, data bitmap, inode table, and data blocks. [cite: 10, 51, 52, 53, 54, 55]
-- [cite_start]**Root Directory Only:** To maintain simplicity, the file system supports only a single root directory (`/`). [cite: 13]
-- [cite_start]**Direct Pointers:** Each inode uses 12 direct pointers to locate its data blocks. [cite: 65] [cite_start]Indirect pointers are not implemented. [cite: 13]
-- [cite_start]**Data Integrity:** Metadata structures (superblock, inodes, and directory entries) are protected by checksums (CRC32 and XOR) to verify their integrity. [cite: 96, 97]
+- **Block-Based Structure:** The file system is organized into a standard layout containing a superblock, inode bitmap, data bitmap, inode table, and data blocks. 
+- **Root Directory Only:** To maintain simplicity, the file system supports only a single root directory (`/`).
+- **Direct Pointers:** Each inode uses 12 direct pointers to locate its data blocks. Indirect pointers are not implemented. 
+- **Data Integrity:** Metadata structures (superblock, inodes, and directory entries) are protected by checksums (CRC32 and XOR) to verify their integrity. 
 
 ## Project Structure
 
-- [cite_start]`mkfs_builder.c`: Source code for the file system image creator. [cite: 123]
-- [cite_start]`mkfs_adder.c`: Source code for the file adder utility. [cite: 124]
+- `mkfs_builder.c`: Source code for the file system image creator.
+- `mkfs_adder.c`: Source code for the file adder utility. 
 - `validator.c`: An instructor-provided utility to check the integrity and correctness of the generated disk images.
-- [cite_start]`file_*.txt`: Sample text files used for testing the `mkfs_adder` program. [cite: 125]
+- `file_*.txt`: Sample text files used for testing the `mkfs_adder` program.
 
 ---
 
@@ -50,7 +50,7 @@ The programs must be run in a specific order.
 
 #### **Step A: Create the Disk Image**
 
-[cite_start]First, use `mkfs_builder` to create an empty disk image. [cite: 33]
+First, use `mkfs_builder` to create an empty disk image.
 
 ```bash
 ./mkfs_builder --image out.img --size-kib 512 --inodes 512
@@ -58,7 +58,7 @@ The programs must be run in a specific order.
 
 #### **Step B: Add a File to the Image**
 
-Next, use `mkfs_adder` to add a file (e.g., `file_19.txt`) to the image you just created. [cite_start]This will produce a new image file (`out2.img`). [cite: 38]
+Next, use `mkfs_adder` to add a file (e.g., `file_19.txt`) to the image you just created. This will produce a new image file (`out2.img`).
 
 ```bash
 ./mkfs_adder --input out.img --output out2.img --file file_19.txt
@@ -87,7 +87,7 @@ To see the raw bytes of the file system, you should use a hex editor. [cite_star
 To view the contents of a single file, use `hexdump -C`. This is useful for seeing the superblock data at the beginning or finding the text of a file you added.
 
 ```bash
-hexdump -C out2.img | less
+hexdump -C out2.img
 ```
 
 #### **Compare Both Images**
